@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "gakumini:block/deepslate_saltpeter_deposit"
+  }
+}

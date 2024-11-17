@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "gakumini:witherbone"
+    },
+    "+": {
+      "item": "minecraft:golden_apple"
+    }
+  },
+  "pattern": [
+    "###",
+    "#+#",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:wither_skeleton_skull",
+    "count": 1
+  }
+}
