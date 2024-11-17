@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:charcoal",
+    "minecraft:bone",
+    "minecraft:coal",
+    "gakumini:saltpeter"
+  ],
+  "result": {
+    "id": "gakumini:witherbone",
+    "count": 1
+  }
+}

@@ -1,26 +1,28 @@
 package gakusei.mini;
 
 import gakusei.mini.util.BlockPair;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ExperienceDroppingBlock;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 
 public class GakuminiBlocks {
 
     public static final BlockPair SALTPETER_DEPOSIT = registerBlockPair(
-            new ExperienceDroppingBlock(FabricBlockSettings.create()
+            new ExperienceDroppingBlock(ConstantIntProvider.create(0), AbstractBlock.Settings.create()
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Gakumini.identifier("deepslate_saltpeter_deposit")))
                     .mapColor(MapColor.DEEPSLATE_GRAY)
-                    .instrument(Instrument.BASEDRUM)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
                     .sounds(BlockSoundGroup.DEEPSLATE)
                     .requiresTool()
                     .strength(4.5F, 3.0F)),
@@ -28,9 +30,10 @@ public class GakuminiBlocks {
     );
 
     public static final BlockPair NETHERRACK_SALTPETER_DEPO = registerBlockPair(
-            new ExperienceDroppingBlock(FabricBlockSettings.create()
+            new ExperienceDroppingBlock(ConstantIntProvider.create(0), AbstractBlock.Settings.create()
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Gakumini.identifier("netherrack_saltpeter_deposit")))
                     .mapColor(MapColor.DARK_RED)
-                    .instrument(Instrument.BASEDRUM)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresTool()
                     .strength(0.6F)
                     .sounds(BlockSoundGroup.NETHERRACK)
@@ -45,7 +48,8 @@ public class GakuminiBlocks {
     public static Item matchingItem(Block block)
     {
         Identifier id = Registries.BLOCK.getId(block);
-        BlockItem blockItem = new BlockItem(block, new FabricItemSettings());
+        BlockItem blockItem = new BlockItem(block, new Item.Settings()
+                .registryKey(RegistryKey.of(RegistryKeys.ITEM, id)));
         return Registry.register(Registries.ITEM, id, blockItem);
     }
 

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "gakumini:saltpeter",
+    "-": "minecraft:charcoal",
+    "+": "minecraft:glowstone_dust"
+  },
+  "pattern": [
+    "+++",
+    "+#+",
+    "+-+"
+  ],
+  "result": {
+    "id": "minecraft:gunpowder",
+    "count": 8
+  }
+}

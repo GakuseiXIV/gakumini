@@ -4,19 +4,19 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ExperienceDroppingBlock;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.enums.Instrument;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.GenerationStep;
@@ -27,22 +27,27 @@ public class Gakumini implements ModInitializer {
 	public static final String MOD_ID = "gakumini";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static final Item SALTPETER = makeBoringItem("saltpeter");
-	public static final Item WITHERBONE = makeBoringItem("witherbone");
+	public static Item SALTPETER = makeBoringItem("saltpeter");
+	public static Item WITHERBONE = makeBoringItem("witherbone");
 
 	public static Identifier identifier(String path)
 	{
 		return Identifier.of(MOD_ID, path);
 	}
+
 	public static Item makeBoringItem(String path)
 	{
 		return Registry.register(Registries.ITEM,
 				identifier(path),
-				new Item(new FabricItemSettings()));
+				new Item(new Item.Settings()
+						.registryKey(RegistryKey.of(RegistryKeys.ITEM, identifier(path)))));
 	}
+
+	public static void init () {}
 
 	@Override
 	public void onInitialize() {
+		Gakumini.init();
 		GakuminiBlocks.init();
 		GakuminiFeatures.init();
 		GakuminiGamerules.init();

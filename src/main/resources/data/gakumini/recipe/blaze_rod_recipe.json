@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:raw_gold",
+    "-": "gakumini:saltpeter",
+    "+": "minecraft:magma_cream",
+    ".": "gakumini:witherbone"
+  },
+  "pattern": [
+    "+#+",
+    "+.+",
+    "+-+"
+  ],
+  "result": {
+    "id": "minecraft:blaze_rod",
+    "count": 2
+  }
+}

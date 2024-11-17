@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "minecraft:magma_block"
-  },
-  "cookingtime": 100,
-  "experience": 0.1,
-  "result": "minecraft:magma_cream"
-}
