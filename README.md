@@ -1,4 +1,4 @@
-<p align="center"><img src="https://cdn.modrinth.com/data/cached_images/4aaf675f035c71ec7e705a292344e8172bda1bf1.png" alt="Gakumini" width="400"/></p>
+<p align="center"><img src="https://cdn.modrinth.com/data/cached_images/4aaf675f035c71ec7e705a292344e8172bda1bf1.png" alt="Gakumini" width="75%"/></p>
 <p align="center">Gakumini is a mod that adds small additions to Minecraft that build up. Simple as that.</p>
 
 ### Current features:
