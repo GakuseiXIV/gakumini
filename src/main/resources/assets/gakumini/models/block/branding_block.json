@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/deepslate_bricks",
+    "east": "gakumini:block/branding_block_sides",
+    "north": "gakumini:block/branding_block_sides",
+    "particle": "gakumini:block/branding_block_sides",
+    "south": "gakumini:block/branding_block_sides",
+    "up": "minecraft:block/iron_block",
+    "west": "gakumini:block/branding_block_sides"
+  }
+}

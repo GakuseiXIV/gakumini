@@ -1,5 +1,7 @@
-package gakusei.mini;
+package gakusei.mini.block;
 
+import gakusei.mini.Gakumini;
+import gakusei.mini.block.BrandingBlock;
 import gakusei.mini.util.BlockPair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -38,15 +40,19 @@ public class GakuminiBlocks {
             "netherrack_saltpeter_deposit"
     );
 
+    public static final BlockPair BRANDING_BLOCK = registerBlockPair(
+            new BrandingBlock(FabricBlockSettings.create()
+                    .mapColor(MapColor.DEEPSLATE_GRAY)
+                    .sounds(BlockSoundGroup.DEEPSLATE_BRICKS)
+                    .instrument(Instrument.COW_BELL)
+                    .requiresTool()
+                    .strength(4.5f, 4.5f)),
+            "branding_block"
+    );
+
     public static BlockPair registerBlockPair(Block block, String name)
     {
-        return new BlockPair(register(block, name), matchingItem(block));
-    }
-    public static Item matchingItem(Block block)
-    {
-        Identifier id = Registries.BLOCK.getId(block);
-        BlockItem blockItem = new BlockItem(block, new FabricItemSettings());
-        return Registry.register(Registries.ITEM, id, blockItem);
+        return new BlockPair(register(block, name));
     }
 
     public static Block register(Block block, String name) {

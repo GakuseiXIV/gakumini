@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "+": {
+      "item": "minecraft:deepslate_bricks"
+    }
+  },
+  "pattern": [
+    "##",
+    "++",
+    "++"
+  ],
+  "result": {
+    "item": "gakumini:branding_block",
+    "count": 1
+  }
+}

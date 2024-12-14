@@ -20,5 +20,9 @@
 - Coins. They can be signed, so you can limit their quantity, with different emblem options. (This is taking more time than expected, so please have some patience with this update)
 
 - Totem Sickness, a new effect that can't be removed with a milk bucket. It applies when a player uses the Totem of Undying, and prevents it from being used until the effect wears off.
+<<<<<<< Updated upstream
 </details>
 
+=======
+</details>
+>>>>>>> Stashed changes

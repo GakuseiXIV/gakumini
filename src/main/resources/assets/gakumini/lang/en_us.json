@@ -1,8 +1,26 @@
 {
   "item.gakumini.saltpeter": "Saltpeter",
   "item.gakumini.witherbone": "Witherbone",
+  "item.gakumini.circle_brand": "Circle Brand",
+  "item.gakumini.plus_brand": "Plus Brand",
+  "item.gakumini.ring_brand": "Ring Brand",
+  "item.gakumini.copper_coin": "Copper Coin",
+  "item.gakumini.diamond_coin": "Diamond Coin",
+  "item.gakumini.emerald_coin": "Emerald Coin",
+  "item.gakumini.gold_coin": "Gold Coin",
+  "item.gakumini.iron_coin": "Iron Coin",
+  "item.gakumini.netherite_coin": "Netherite Coin",
+
   "block.gakumini.deepslate_saltpeter_deposit": "Deepslate Saltpeter Deposit",
   "block.gakumini.netherrack_saltpeter_deposit": "Netherrack Saltpeter Deposit",
+  "block.gakumini.branding_block": "Branding Block",
+
   "gamerule.shieldDisableTicks": "Shield Disable Ticks",
-  "gamerule.strongShieldDisableTicks": "Strong Attack Shield Disable Ticks"
+  "gamerule.strongShieldDisableTicks": "Strong Attack Shield Disable Ticks",
+
+  "effect.gakumini.totem_sickness": "Totem Sickness",
+
+  "gakumini.totem_sickness_remove": "You can't remove Totem Sickness!",
+  "gakumini.coinMadeBy": "Made by ",
+  "gakumini.container.branding": "Branding Block"
 }

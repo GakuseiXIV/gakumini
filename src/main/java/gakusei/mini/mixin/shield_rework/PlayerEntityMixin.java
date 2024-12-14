@@ -24,8 +24,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method="takeShieldHit", at=@At("HEAD"), cancellable = true)
-    public void disableShieldOnHit(LivingEntity attacker, CallbackInfo ci)
-    {
+    public void disableShieldOnHit(LivingEntity attacker, CallbackInfo ci) {
         super.takeShieldHit(attacker);
 
         int shieldDisableTicks = getWorld().getGameRules().getInt(GakuminiGamerules.SHIELD_DISABLE_TICKS);

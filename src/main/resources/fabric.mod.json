@@ -16,6 +16,9 @@
 		],
 		"main": [
 			"gakusei.mini.Gakumini"
+		],
+		"client": [
+			"gakusei.mini.client.GakuminiClient"
 		]
 	},
 	"mixins": [

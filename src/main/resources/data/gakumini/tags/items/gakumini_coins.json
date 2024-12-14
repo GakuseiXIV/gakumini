@@ -1,0 +1,10 @@
+{
+  "values": [
+    "gakumini:copper_coin",
+    "gakumini:diamond_coin",
+    "gakumini:emerald_coin",
+    "gakumini:gold_coin",
+    "gakumini:iron_coin",
+    "gakumini:netherite_coin"
+  ]
+}
