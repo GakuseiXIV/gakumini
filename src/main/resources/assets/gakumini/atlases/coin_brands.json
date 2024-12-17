@@ -1,0 +1,14 @@
+{
+  "sources": [
+    {
+      "type": "directory",
+      "source": "coin_brands",
+      "prefix": "coin_brands/"
+    },
+    {
+      "type": "directory",
+      "source": "coins",
+      "prefix": "coins/"
+    }
+  ]
+}

@@ -11,9 +11,6 @@
 	"icon": "assets/gakumini/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"fabric-datagen": [
-			"gakusei.mini.GakuminiDatagen"
-		],
 		"main": [
 			"gakusei.mini.Gakumini"
 		],

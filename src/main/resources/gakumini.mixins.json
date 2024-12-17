@@ -1,17 +1,22 @@
 {
-	"required": true,
-	"package": "gakusei.mini.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"coin_models.ItemModelGeneratorMixin",
-		"shield_rework.PlayerEntityMixin",
-		"totem_sickness.LivingEntityMixin",
-		"totem_sickness.MilkBucketItemMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"client": [
-		"coin_models.ItemRendererMixin"
-	]
+  "required": true,
+  "package": "gakusei.mini.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "coin_models.ItemModelGeneratorMixin",
+    "coin_models.SpriteAtlasManagerMixin",
+    "shield_rework.PlayerEntityMixin",
+    "totem_sickness.LivingEntityMixin",
+    "totem_sickness.MilkBucketItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "coin_models.BakedModelManagerMixin",
+    "coin_models.ItemRendererMixin",
+    "coin_models.MinecraftClientMixin",
+    "coin_models.RenderLayersMixin",
+    "coin_models.SpriteAtlasTextureMixin"
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "gakumini:netherrack_saltpeter_deposit"
+    "gakumini:netherrack_saltpeter_deposit",
+    "gakumini:branding_block"
   ]
 }

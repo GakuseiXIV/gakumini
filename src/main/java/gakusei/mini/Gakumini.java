@@ -7,36 +7,45 @@ import gakusei.mini.recipe.BrandRecipeSerializer;
 import gakusei.mini.recipe.BrandingRecipe;
 import gakusei.mini.screen.BrandingScreenHandler;
 import gakusei.mini.util.ColorUtil;
-import io.wispforest.owo.ui.core.Color;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.damage.DamageType;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.world.gen.GenerationStep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Gakumini implements ModInitializer {
 	public static final String MOD_ID = "gakumini";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+	public static List<Item> coins = new ArrayList<>();
+
+	public static Map<Item, String> coinBrandMap = new HashMap<>();
+	public static Map<Item, String> coinMaterialMap = new HashMap<>();
 
 	public static final StatusEffect TOTEM_SICKNESS = Registry.register(
 			Registries.STATUS_EFFECT, identifier("totem_sickness"), new GenericEffect(StatusEffectCategory.HARMFUL,
@@ -46,16 +55,16 @@ public class Gakumini implements ModInitializer {
 	public static final Item SALTPETER = makeBoringItem("saltpeter");
 	public static final Item WITHERBONE = makeBoringItem("witherbone");
 	
-	public static final Item CIRCLE_BRAND = makeBoringItem("circle_brand");
-	public static final Item PLUS_BRAND = makeBoringItem("plus_brand");
-	public static final Item RING_BRAND = makeBoringItem("ring_brand");
+	public static final Item CIRCLE_BRAND = makeBrandItem("circle_brand","circle");
+	public static final Item PLUS_BRAND = makeBrandItem("plus_brand","plus");
+	public static final Item RING_BRAND = makeBrandItem("ring_brand","ring");
 
-	public static final Item COPPER_COIN = makeCoinItem("copper_coin");
-	public static final Item DIAMOND_COIN = makeCoinItem("diamond_coin");
-	public static final Item EMERALD_COIN = makeCoinItem("emerald_coin");
-	public static final Item GOLD_COIN = makeCoinItem("gold_coin");
-	public static final Item IRON_COIN = makeCoinItem("iron_coin");
-	public static final Item NETHERITE_COIN = makeCoinItem("netherite_coin");
+	public static final Item COPPER_COIN = makeCoinItem("copper_coin","copper");
+	public static final Item DIAMOND_COIN = makeCoinItem("diamond_coin","diamond");
+	public static final Item EMERALD_COIN = makeCoinItem("emerald_coin","emerald");
+	public static final Item GOLD_COIN = makeCoinItem("gold_coin","gold");
+	public static final Item IRON_COIN = makeCoinItem("iron_coin","iron");
+	public static final Item NETHERITE_COIN = makeCoinItem("netherite_coin","netherite");
 
 
 	public static final ScreenHandlerType<BrandingScreenHandler> BRANDING_SCREEN_HANDLER_TYPE = Registry.register(
@@ -73,17 +82,26 @@ public class Gakumini implements ModInitializer {
 		if (path.contains(":")) return new Identifier(path);
 		return Identifier.of(MOD_ID, path);
 	}
-	public static Item makeCoinItem(String path) {
-		return Registry.register(Registries.ITEM,
+	public static Item makeCoinItem(String path, String material) {
+		Item i = Registry.register(Registries.ITEM,
 				identifier(path),
 				new CoinItem(new FabricItemSettings()));
+		coins.add(i);
+		coinMaterialMap.put(i, material);
+		return i;
 	}
 	public static Item makeBoringItem(String path) {
 		return Registry.register(Registries.ITEM,
 				identifier(path),
 				new Item(new FabricItemSettings()));
 	}
-
+	public static Item makeBrandItem(String path, String brand) {
+		Item item = Registry.register(Registries.ITEM,
+				identifier(path),
+				new Item(new FabricItemSettings().rarity(Rarity.UNCOMMON).maxCount(1)));
+		coinBrandMap.put(item, brand);
+		return item;
+	}
 
 	@Override
 	public void onInitialize() {
@@ -103,12 +121,58 @@ public class Gakumini implements ModInitializer {
 				GenerationStep.Feature.UNDERGROUND_ORES, GakuminiFeatures.NETHER_SALTPETER_DEPOSIT_FEATURE);
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-				.register((itemGroup) -> itemGroup.addAfter(Items.RAW_GOLD, SALTPETER));
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-				.register((itemGroup) -> itemGroup.addAfter(Items.BONE, WITHERBONE));
+				.register((itemGroup) -> {
+					itemGroup.addAfter(Items.RAW_GOLD, SALTPETER);
+					itemGroup.addAfter(Items.BONE, WITHERBONE);
+					for (Item item : coins) {
+						itemGroup.add(item);
+					}
+					for (Item item : coinBrandMap.keySet()) {
+						itemGroup.add(item);
+					}
+				});
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL)
-				.register((itemGroup) -> itemGroup.addAfter(Items.DEEPSLATE_GOLD_ORE,GakuminiBlocks.SALTPETER_DEPOSIT.item));
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL)
-				.register((itemGroup) -> itemGroup.addAfter(GakuminiBlocks.SALTPETER_DEPOSIT.item, GakuminiBlocks.NETHERRACK_SALTPETER_DEPO.item));
+				.register((itemGroup) -> {
+					itemGroup.addAfter(Items.DEEPSLATE_GOLD_ORE,GakuminiBlocks.SALTPETER_DEPOSIT.item);
+					itemGroup.addAfter(GakuminiBlocks.SALTPETER_DEPOSIT.item, GakuminiBlocks.NETHERRACK_SALTPETER_DEPO.item);
+				});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL)
+				.register((itemGroup) -> {
+					itemGroup.add(GakuminiBlocks.BRANDING_BLOCK.item);
+				});
+
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+			if (!source.isBuiltin()) return;
+
+			if (isValidForBrandLoot(id)) tableBuilder.pool(coinBrandEntries());
+		});
+	}
+
+	public static LootPool.Builder coinBrandEntries()
+	{
+		LootPool.Builder f = LootPool.builder();
+		int i = 0;
+		for (Item item : coinBrandMap.keySet()) {
+			i++;
+			f = f.with(ItemEntry.builder(item).weight(5));
+		}
+		return f.with(ItemEntry.builder(Items.AIR).weight(i*5));
+	}
+
+	public static boolean isValidForBrandLoot(Identifier id) {
+		List<Identifier> lootTables = List.of(
+				LootTables.SHIPWRECK_TREASURE_CHEST,
+				LootTables.BURIED_TREASURE_CHEST,
+				LootTables.DESERT_PYRAMID_CHEST,
+				LootTables.JUNGLE_TEMPLE_CHEST,
+				LootTables.JUNGLE_TEMPLE_DISPENSER_CHEST,
+				LootTables.ABANDONED_MINESHAFT_CHEST,
+				LootTables.RUINED_PORTAL_CHEST,
+				LootTables.SIMPLE_DUNGEON_CHEST,
+				LootTables.VILLAGE_TOOLSMITH_CHEST);
+		for (Identifier i : lootTables) {
+			if (id.equals(i)) return true;
+		}
+		return false;
 	}
 }

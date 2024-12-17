@@ -102,18 +102,17 @@ public class BrandingScreenHandler extends ScreenHandler {
                 if (materialStack.isOf(Items.IRON_INGOT)) putString = "iron";
                 if (materialStack.isOf(Items.NETHERITE_INGOT)) putString = "netherite";
 
-                if (brandStack.isOf(Gakumini.CIRCLE_BRAND)) putString = putString + "_circle";
-                if (brandStack.isOf(Gakumini.PLUS_BRAND)) putString = putString + "_plus";
-                if (brandStack.isOf(Gakumini.RING_BRAND)) putString = putString + "_ring";
+                if (brandStack.isIn(GakuminiTags.BRANDING_BRANDS)) {
+                    putString = putString + "_" + Gakumini.coinBrandMap.get(brandStack.getItem());
+                }
 
                 itemStack.getOrCreateNbt().putString("coin_brands", NBTUtil.addToStringlist(
-                        itemStack.getNbt().getString("coin_brands"), putString
+                        itemStack.getNbt().getString("coin_brands"), putString, true
                 ));
             }
 
             if(itemStack.isIn(GakuminiTags.GAKUMINI_COINS))
             {
-                Gakumini.LOGGER.info("the name is " + player.getName().getString());
                 itemStack.getOrCreateNbt().putString("signer", player.getName().getString());
             }
 
