@@ -58,6 +58,7 @@ public class Gakumini implements ModInitializer {
 	public static final Item CIRCLE_BRAND = makeBrandItem("circle_brand","circle");
 	public static final Item PLUS_BRAND = makeBrandItem("plus_brand","plus");
 	public static final Item RING_BRAND = makeBrandItem("ring_brand","ring");
+	public static final Item CORNERS_BRAND = makeBrandItem("corners_brand", "corners");
 
 	public static final Item COPPER_COIN = makeCoinItem("copper_coin","copper");
 	public static final Item DIAMOND_COIN = makeCoinItem("diamond_coin","diamond");
