@@ -12,12 +12,6 @@
   - Witherbone can be used to craft Wither Skeleton skulls, with 8 around a golden apple. Less tedious.
   - Witherbone can be used to craft Blaze Rods.
 - Magma cream can be crafted by blasting magma blocks.
-
-<details>
-    <summary>Features for the next update? (Spoilers)</summary>
-  <br>
-
+**1.2.0**
 - Coins. They can be signed, so you can limit their quantity, with different emblem options. (This is taking more time than expected, so please have some patience with this update)
-
 - Totem Sickness, a new effect that can't be removed with a milk bucket. It applies when a player uses the Totem of Undying, and prevents it from being used until the effect wears off.
-</details>
