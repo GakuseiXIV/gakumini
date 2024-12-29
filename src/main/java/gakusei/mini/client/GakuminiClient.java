@@ -51,7 +51,7 @@ public class GakuminiClient implements ClientModInitializer {
                 Gakumini.BRANDING_SCREEN_HANDLER_TYPE, BrandingScreen::new
         );
 
-        for (Item item : Gakumini.coins) {
+        for (Item item : Gakumini.coinMaterialMap.keySet()) {
             BuiltinItemRendererRegistry.INSTANCE.register(item, modularCoinRenderer);
             Gakumini.LOGGER.info("Registered " + item.getTranslationKey() + " with a ModularCoinRenderer");
         }

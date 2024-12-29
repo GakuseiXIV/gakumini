@@ -1,6 +1,7 @@
 package gakusei.mini.mixin.totem_sickness;
 
 import gakusei.mini.Gakumini;
+import gakusei.mini.GakuminiGamerules;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -41,8 +42,8 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "tryUseTotem", at=@At("RETURN"))
     public void applyTotemSickness(DamageSource source, CallbackInfoReturnable<Boolean> cir)
     {
-        if (cir.getReturnValue()) {
-            ((LivingEntity) (Object) this).addStatusEffect(new StatusEffectInstance(Gakumini.TOTEM_SICKNESS, 3600, 0));
+        if (cir.getReturnValue() && getWorld().getGameRules().getInt(GakuminiGamerules.TOTEM_SICKNESS_LENGTH) > 0) {
+            ((LivingEntity) (Object) this).addStatusEffect(new StatusEffectInstance(Gakumini.TOTEM_SICKNESS, getWorld().getGameRules().getInt(GakuminiGamerules.TOTEM_SICKNESS_LENGTH), 0));
         }
     }
 }

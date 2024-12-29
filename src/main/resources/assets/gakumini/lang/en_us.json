@@ -1,10 +1,14 @@
 {
   "item.gakumini.saltpeter": "Saltpeter",
   "item.gakumini.witherbone": "Witherbone",
+
   "item.gakumini.circle_brand": "Circle Brand",
   "item.gakumini.plus_brand": "Plus Brand",
   "item.gakumini.ring_brand": "Ring Brand",
   "item.gakumini.corners_brand": "Corners Brand",
+  "item.gakumini.face_brand": "Face Brand",
+  "item.gakumini.creeper_brand": "Creeper Brand",
+
   "item.gakumini.copper_coin": "Copper Coin",
   "item.gakumini.diamond_coin": "Diamond Coin",
   "item.gakumini.emerald_coin": "Emerald Coin",
@@ -18,6 +22,7 @@
 
   "gamerule.shieldDisableTicks": "Shield Disable Ticks",
   "gamerule.strongShieldDisableTicks": "Strong Attack Shield Disable Ticks",
+  "gamerule.totemSicknessLength": "Totem Sickness Duration",
 
   "effect.gakumini.totem_sickness": "Totem Sickness",
 

@@ -42,8 +42,6 @@ public class Gakumini implements ModInitializer {
 	public static final String MOD_ID = "gakumini";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static List<Item> coins = new ArrayList<>();
-
 	public static Map<Item, String> coinBrandMap = new HashMap<>();
 	public static Map<Item, String> coinMaterialMap = new HashMap<>();
 
@@ -59,6 +57,8 @@ public class Gakumini implements ModInitializer {
 	public static final Item PLUS_BRAND = makeBrandItem("plus_brand","plus");
 	public static final Item RING_BRAND = makeBrandItem("ring_brand","ring");
 	public static final Item CORNERS_BRAND = makeBrandItem("corners_brand", "corners");
+	public static final Item FACE_BRAND = makeBrandItem("face_brand", "face");
+	public static final Item CREEPER_BRAND = makeBrandItem("creeper_brand", "creeper");
 
 	public static final Item COPPER_COIN = makeCoinItem("copper_coin","copper");
 	public static final Item DIAMOND_COIN = makeCoinItem("diamond_coin","diamond");
@@ -66,6 +66,8 @@ public class Gakumini implements ModInitializer {
 	public static final Item GOLD_COIN = makeCoinItem("gold_coin","gold");
 	public static final Item IRON_COIN = makeCoinItem("iron_coin","iron");
 	public static final Item NETHERITE_COIN = makeCoinItem("netherite_coin","netherite");
+
+	public static LootPool.Builder coinsLootPool = coinBrandEntries();
 
 
 	public static final ScreenHandlerType<BrandingScreenHandler> BRANDING_SCREEN_HANDLER_TYPE = Registry.register(
@@ -87,7 +89,6 @@ public class Gakumini implements ModInitializer {
 		Item i = Registry.register(Registries.ITEM,
 				identifier(path),
 				new CoinItem(new FabricItemSettings()));
-		coins.add(i);
 		coinMaterialMap.put(i, material);
 		return i;
 	}
@@ -125,7 +126,7 @@ public class Gakumini implements ModInitializer {
 				.register((itemGroup) -> {
 					itemGroup.addAfter(Items.RAW_GOLD, SALTPETER);
 					itemGroup.addAfter(Items.BONE, WITHERBONE);
-					for (Item item : coins) {
+					for (Item item : coinMaterialMap.keySet()) {
 						itemGroup.add(item);
 					}
 					for (Item item : coinBrandMap.keySet()) {
@@ -139,13 +140,14 @@ public class Gakumini implements ModInitializer {
 				});
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL)
 				.register((itemGroup) -> {
-					itemGroup.add(GakuminiBlocks.BRANDING_BLOCK.item);
+					itemGroup.addAfter(Items.FURNACE,GakuminiBlocks.BRANDING_BLOCK.item);
 				});
 
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (!source.isBuiltin()) return;
-
-			if (isValidForBrandLoot(id)) tableBuilder.pool(coinBrandEntries());
+			//i repeat pool because im pretty sure it increases amount of times the items can spawn in the loot table, if someone knows
+			//a better way to do this please tell me because i hate just looking at this line
+			if (isValidForBrandLoot(id)) tableBuilder.pool(coinsLootPool).pool(coinsLootPool);
 		});
 	}
 
@@ -155,9 +157,13 @@ public class Gakumini implements ModInitializer {
 		int i = 0;
 		for (Item item : coinBrandMap.keySet()) {
 			i++;
-			f = f.with(ItemEntry.builder(item).weight(5));
+			f = f.with(ItemEntry.builder(item).weight(7).quality(3));
 		}
-		return f.with(ItemEntry.builder(Items.AIR).weight(i*5));
+		f.with(ItemEntry.builder(COPPER_COIN).weight(i*4).quality(-1));
+		f.with(ItemEntry.builder(IRON_COIN).weight(i*2).quality(0));
+		f.with(ItemEntry.builder(GOLD_COIN).weight(i).quality(1));
+		f.with(ItemEntry.builder(EMERALD_COIN).weight(i/2).quality(2));
+		return f.with(ItemEntry.builder(Items.AIR).weight(i*3).quality(-3));
 	}
 
 	public static boolean isValidForBrandLoot(Identifier id) {
@@ -170,7 +176,10 @@ public class Gakumini implements ModInitializer {
 				LootTables.ABANDONED_MINESHAFT_CHEST,
 				LootTables.RUINED_PORTAL_CHEST,
 				LootTables.SIMPLE_DUNGEON_CHEST,
-				LootTables.VILLAGE_TOOLSMITH_CHEST);
+				LootTables.VILLAGE_TOOLSMITH_CHEST,
+				LootTables.FISHING_TREASURE_GAMEPLAY,
+				LootTables.PIGLIN_BARTERING_GAMEPLAY,
+				LootTables.BASTION_OTHER_CHEST);
 		for (Identifier i : lootTables) {
 			if (id.equals(i)) return true;
 		}
